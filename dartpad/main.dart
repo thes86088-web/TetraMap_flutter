@@ -9,9 +9,15 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    /*IdeaData testIdea = IdeaData(
+      title: "test idea",
+      detailId: UniqueKey(),
+      childrenData: [],
+    );*/
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(body: Center(child: Text('Hello, World!'))),
+      home: Scaffold(body: Center(child: IdeaScreen())),
     );
   }
 }
@@ -43,7 +49,7 @@ class IdeaData {
 class NodeData {
   //UniqueKey nodeId = UniqueKey();
   String title;
-  UniqueKey parentId ;
+  UniqueKey parentId;
   UniqueKey detailId;
   List<NodeData> branchesData;
 
@@ -60,19 +66,22 @@ class IdeaScreen extends StatelessWidget {
   //IdeaScreen( {required this.ideaList}  );
 
   Widget build(BuildContext context) {
+    if (ideaList.isEmpty) {
+      return Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text("No Ideas mapped yet"),
+          SizedBox( height : 30 ),
+          IconButton.filled( icon: Icon(Icons.add), onPressed: () {}, style : IconButton.styleFrom(
+    backgroundColor: Colors.blue )),
+        ],
+      );
+    }
+
     return Scaffold(
       body: ListView.builder(
         itemCount: ideaList.length,
         itemBuilder: (BuildContext context, int index) {
-          if (ideaList.isEmpty) {
-            return Column(
-              children: [
-                Text("No Ideas mapped yet"),
-                IconButton(icon: Icon(Icons.add), onPressed: () {}),
-              ],
-            );
-          }
-
           Map<UniqueKey, IdeaData> tempIdea = ideaList[index];
           //UniqueKey tempId = tempIdea.keys.first ;
           IdeaData tempData = tempIdea.values.first;
@@ -88,8 +97,13 @@ class IdeaCard extends StatelessWidget {
   IdeaCard({required this.data});
 
   Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(leading: Icon(Icons.lightbulb), title: Text(data.title)),
+    return Card.outlined(
+      color: Colors.lightGreen,
+      child: ListTile(
+        leading: Icon(Icons.lightbulb, color: Colors.yellowAccent),
+        title: Text(data.title),
+      ),
     );
   }
 }
+
