@@ -26,7 +26,7 @@ class MainApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(body: Center(child: IdeaMapScreen( ideaKey : UniqueKey() ))),
+      home: Scaffold(body: Center(child: BranchMapScreen( nodeKey : UniqueKey() ))),
     );
   }
 }
@@ -202,6 +202,64 @@ class IdeaMapScreen extends StatelessWidget{
         IdeaCard( data : testIdea ), 
         Column( 
           children : [ 
+            NodeCard( data: testNode3 ), 
+            NodeCard( data: testNode4 ) 
+          ] )
+      ] )
+    );
+  }
+  
+}
+
+class BranchMapScreen extends StatelessWidget{
+  
+  final UniqueKey nodeKey ;
+  BranchMapScreen({ required this.nodeKey });
+  
+  Widget build( BuildContext context ){
+    
+    IdeaData testIdea = IdeaData(
+      title: "test idea",
+      detailId: UniqueKey(),
+      childrenData: [],
+    );
+    
+    NodeData testNode1 = NodeData(
+      title : "test node 1",
+      parentId : UniqueKey(),
+      branchesData : [],
+      detailId : UniqueKey()
+    );
+    
+    NodeData testNode2 = NodeData(
+      title : "test node 2",
+      parentId : UniqueKey(),
+      branchesData : [],
+      detailId : UniqueKey()
+    );
+    
+    NodeData testNode3 = NodeData(
+      title : "test node 3",
+      parentId : UniqueKey(),
+      branchesData : [],
+      detailId : UniqueKey()
+    );
+    
+    NodeData testNode4 = NodeData(
+      title : "test node 4",
+      parentId : UniqueKey(),
+      branchesData : [],
+      detailId : UniqueKey()
+    );
+    
+    return Scaffold( 
+      appBar : AppBar( title : Text("BranchMapScreen")/*Text( ideaKey.toString() )*/ ),
+      body : Column( children : [
+        IdeaCard( data : testIdea ), 
+        Column( 
+          children : [             
+            NodeCard( data : testNode1 ), 
+            NodeCard( data : testNode2 ), 
             NodeCard( data: testNode3 ), 
             NodeCard( data: testNode4 ) 
           ] )
