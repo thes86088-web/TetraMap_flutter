@@ -14,10 +14,17 @@ class MainApp extends StatelessWidget {
       detailId: UniqueKey(),
       childrenData: [],
     );*/
+    
+    NodeData testNode = NodeData(
+      title : "test node",
+      parentId : UniqueKey(),
+      branchesData : [],
+      detailId : UniqueKey()
+    );
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(body: Center(child: IdeaScreen())),
+      home: Scaffold(body: Center(child: NodeCard( data : testNode ))),
     );
   }
 }
@@ -71,9 +78,12 @@ class IdeaScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text("No Ideas mapped yet"),
-          SizedBox( height : 30 ),
-          IconButton.filled( icon: Icon(Icons.add), onPressed: () {}, style : IconButton.styleFrom(
-    backgroundColor: Colors.blue )),
+          SizedBox(height: 30),
+          IconButton.filled(
+            icon: Icon(Icons.add),
+            onPressed: () {},
+            style: IconButton.styleFrom(backgroundColor: Colors.blue),
+          ),
         ],
       );
     }
@@ -107,3 +117,31 @@ class IdeaCard extends StatelessWidget {
   }
 }
 
+class NodeCard extends StatelessWidget {
+  final NodeData data;
+  NodeCard({required this.data});
+
+  Widget build(BuildContext context) {
+    return Card.outlined(
+      color: Colors.grey,
+      child: ListTile(
+        leading: Icon(Icons.lightbulb, color: Colors.white),
+        title: Row(
+          children: [
+            Expanded(child : Text(data.title)),
+            ElevatedButton(
+              child: Icon(Icons.add),
+              onPressed: () {},
+              style: IconButton.styleFrom(backgroundColor: Colors.blue),
+            ),
+          ],
+        ),
+        subtitle: ElevatedButton(
+          child: Icon(Icons.more_horiz),
+          onPressed: () {},
+          style: IconButton.styleFrom(backgroundColor: Colors.grey),
+        ),
+      ),
+    );
+  }
+}
