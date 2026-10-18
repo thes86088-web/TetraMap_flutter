@@ -14,7 +14,7 @@ class MainApp extends StatelessWidget {
       detailId: UniqueKey(),
       childrenData: [],
     );*/
-    
+
     /*
     NodeData testNode = NodeData(
       title : "test node",
@@ -23,10 +23,17 @@ class MainApp extends StatelessWidget {
       detailId : UniqueKey()
     );
     */
+    
+    //UniqueKey testId = UniqueKey();
+    String testTitle =  "test idea" ;
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: Scaffold(body: Center(child: BranchMapScreen( nodeKey : UniqueKey() ))),
+      home: Scaffold(
+        body: Center(
+          child: DetailScreen(title: testTitle, /*detailId: testId */ ),
+        ),
+      ),
     );
   }
 }
@@ -113,7 +120,7 @@ class IdeaCard extends StatelessWidget {
       color: Colors.lightGreen,
       child: ListTile(
         leading: Icon(Icons.lightbulb, color: Colors.yellowAccent),
-        title: Center(child : Text(data.title)),
+        title: Center(child: Text(data.title)),
       ),
     );
   }
@@ -130,9 +137,9 @@ class NodeCard extends StatelessWidget {
         leading: Icon(Icons.lightbulb, color: Colors.white),
         title: Row(
           children: [
-            Expanded(child : Text(data.title)),
+            Expanded(child: Text(data.title)),
             ElevatedButton(
-              child: Icon(Icons.add),
+              child: Icon(Icons.more_horiz),
               onPressed: () {},
               style: IconButton.styleFrom(backgroundColor: Colors.blue),
             ),
@@ -148,123 +155,167 @@ class NodeCard extends StatelessWidget {
   }
 }
 
+class DetailScreen extends StatelessWidget {
+  final String title;
+  //final UniqueKey detailId;
+  DetailScreen({/*required this.detailId,*/ required this.title});
+  Widget build(BuildContext context) {
+    /*String content = (AppData.detailList.where(
+      (map) => detailId == map.keys.first,
+    )).toList().first.values.first;
+    */
+    Widget defaultBody = Card(
+                  child: Column(
+                    children: [
+                      Text("The idea has no detailed description yet"),
+                      ElevatedButton(
+                        child: Icon(Icons.add),
+                        onPressed: () {},
+                        style: IconButton.styleFrom(
+                          backgroundColor: Colors.blue,
+                        ),
+                      ),
+                    ],
+                  ),
+                ) ;
+
+
+    return Scaffold(
+      appBar: AppBar(title: const Text("DetailScreen")),
+      body: Column(
+        mainAxisAlignment : MainAxisAlignment.center,
+        children: [
+          Card(child: Text(title)),
+          //(content == "" || content.isEmpty) ?
+               defaultBody
+          //    : Card(child: Text(content)),
+        ],
+      ),
+    );
+  }
+}
 //class BranchMapScreen
 
-class IdeaMapScreen extends StatelessWidget{
-  
-  final UniqueKey ideaKey ;
-  IdeaMapScreen({ required this.ideaKey });
-  
-  Widget build( BuildContext context ){
-    
+class IdeaMapScreen extends StatelessWidget {
+  final UniqueKey ideaKey;
+  IdeaMapScreen({required this.ideaKey});
+
+  Widget build(BuildContext context) {
     IdeaData testIdea = IdeaData(
       title: "test idea",
       detailId: UniqueKey(),
       childrenData: [],
     );
-    
+
     NodeData testNode1 = NodeData(
-      title : "test node 1",
-      parentId : UniqueKey(),
-      branchesData : [],
-      detailId : UniqueKey()
+      title: "test node 1",
+      parentId: UniqueKey(),
+      branchesData: [],
+      detailId: UniqueKey(),
     );
-    
+
     NodeData testNode2 = NodeData(
-      title : "test node 2",
-      parentId : UniqueKey(),
-      branchesData : [],
-      detailId : UniqueKey()
+      title: "test node 2",
+      parentId: UniqueKey(),
+      branchesData: [],
+      detailId: UniqueKey(),
     );
-    
+
     NodeData testNode3 = NodeData(
-      title : "test node 3",
-      parentId : UniqueKey(),
-      branchesData : [],
-      detailId : UniqueKey()
+      title: "test node 3",
+      parentId: UniqueKey(),
+      branchesData: [],
+      detailId: UniqueKey(),
     );
-    
+
     NodeData testNode4 = NodeData(
-      title : "test node 4",
-      parentId : UniqueKey(),
-      branchesData : [],
-      detailId : UniqueKey()
+      title: "test node 4",
+      parentId: UniqueKey(),
+      branchesData: [],
+      detailId: UniqueKey(),
     );
-    
-    return Scaffold( 
-      appBar : AppBar( title : Text("IdeaMapScreen")/*Text( ideaKey.toString() )*/ ),
-      body : Column( children : [
-        Column(
-          children : [ 
-            NodeCard( data : testNode1 ), 
-            NodeCard( data : testNode2 ) 
-          ] ), 
-        IdeaCard( data : testIdea ), 
-        Column( 
-          children : [ 
-            NodeCard( data: testNode3 ), 
-            NodeCard( data: testNode4 ) 
-          ] )
-      ] )
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("IdeaMapScreen") /*Text( ideaKey.toString() )*/,
+      ),
+      body: Column(
+        children: [
+          Column(
+            children: [
+              NodeCard(data: testNode1),
+              NodeCard(data: testNode2),
+            ],
+          ),
+          IdeaCard(data: testIdea),
+          Column(
+            children: [
+              NodeCard(data: testNode3),
+              NodeCard(data: testNode4),
+            ],
+          ),
+        ],
+      ),
     );
   }
-  
 }
 
-class BranchMapScreen extends StatelessWidget{
-  
-  final UniqueKey nodeKey ;
-  BranchMapScreen({ required this.nodeKey });
-  
-  Widget build( BuildContext context ){
-    
+class BranchMapScreen extends StatelessWidget {
+  final UniqueKey nodeKey;
+  BranchMapScreen({required this.nodeKey});
+
+  Widget build(BuildContext context) {
     IdeaData testIdea = IdeaData(
       title: "test idea",
       detailId: UniqueKey(),
       childrenData: [],
     );
-    
+
     NodeData testNode1 = NodeData(
-      title : "test node 1",
-      parentId : UniqueKey(),
-      branchesData : [],
-      detailId : UniqueKey()
+      title: "test node 1",
+      parentId: UniqueKey(),
+      branchesData: [],
+      detailId: UniqueKey(),
     );
-    
+
     NodeData testNode2 = NodeData(
-      title : "test node 2",
-      parentId : UniqueKey(),
-      branchesData : [],
-      detailId : UniqueKey()
+      title: "test node 2",
+      parentId: UniqueKey(),
+      branchesData: [],
+      detailId: UniqueKey(),
     );
-    
+
     NodeData testNode3 = NodeData(
-      title : "test node 3",
-      parentId : UniqueKey(),
-      branchesData : [],
-      detailId : UniqueKey()
+      title: "test node 3",
+      parentId: UniqueKey(),
+      branchesData: [],
+      detailId: UniqueKey(),
     );
-    
+
     NodeData testNode4 = NodeData(
-      title : "test node 4",
-      parentId : UniqueKey(),
-      branchesData : [],
-      detailId : UniqueKey()
+      title: "test node 4",
+      parentId: UniqueKey(),
+      branchesData: [],
+      detailId: UniqueKey(),
     );
-    
-    return Scaffold( 
-      appBar : AppBar( title : Text("BranchMapScreen")/*Text( ideaKey.toString() )*/ ),
-      body : Column( children : [
-        IdeaCard( data : testIdea ), 
-        Column( 
-          children : [             
-            NodeCard( data : testNode1 ), 
-            NodeCard( data : testNode2 ), 
-            NodeCard( data: testNode3 ), 
-            NodeCard( data: testNode4 ) 
-          ] )
-      ] )
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("BranchMapScreen") /*Text( ideaKey.toString() )*/,
+      ),
+      body: Column(
+        children: [
+          IdeaCard(data: testIdea),
+          Column(
+            children: [
+              NodeCard(data: testNode1),
+              NodeCard(data: testNode2),
+              NodeCard(data: testNode3),
+              NodeCard(data: testNode4),
+            ],
+          ),
+        ],
+      ),
     );
   }
-  
 }
